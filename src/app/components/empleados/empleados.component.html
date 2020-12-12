@@ -1,0 +1,70 @@
+<h2>Listado De Empleados</h2>
+<hr />
+
+<div class="row">
+    <div class="col text-right">
+        <button class="btn btn-primary" 
+                routerLink="/empleado/nuevo">
+      <i class="fa fa-plus"></i>
+      Agregar
+    </button>
+    </div>
+</div>
+
+<table class="table mt-3 animated fadeIn faster">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellido</th>
+            <th scope="col">Fecha Ingreso</th>
+            <th scope="col">Fecha Egreso</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Opciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th scope="row">1</th>
+            <td>Edwin</td>
+            <td>Aponte</td>
+            <td>01-01-2010</td>
+            <td>-</td>
+            <td>Vacaciones</td>
+            <td>Ver Mas</td>
+        </tr>
+        <tr>
+            <th scope="row">2</th>
+            <td>Aurimar</td>
+            <td>Romero</td>
+            <td>01-01-20141</td>
+            <td>15-12-2016</td>
+            <td>Renunica</td>
+            <td>Ver Mas</td>
+        </tr>
+        <tr>
+            <th scope="row">3</th>
+            <td>Even</td>
+            <td>Aponte</td>
+            <td>01-11-2017</td>
+            <td>-</td>
+            <td>Licencia</td>
+            <td>Ver Mas</td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="alert alert-warning text-center mt-3">
+    <h4 class="alert-heading">No Hay Registros</h4>
+    <p>
+        <i class="fa fa-exclamation fa-2x"></i>
+    </p>
+</div>
+
+<div class="alert alert-info text-center mt-3">
+    <h4 class="alert-heading">Cargando</h4>
+    <p>
+        <i class="fa fa-sync-alt fa-spin fa-2x"></i>
+    </p>
+    <p class="mb-0">Espere Por Favor</p>
+</div>

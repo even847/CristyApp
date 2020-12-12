@@ -1,0 +1,195 @@
+<h2 class="text-center">Registro De Empleado</h2>
+<hr/>
+
+<div class="row text-right">
+  <div class="col">
+    <button class="btn btn-danger"
+            routerLink="/empleados">
+      <i class="fa fa-arrow-left"></i>
+      Regresar
+    </button>
+  </div>
+</div>
+
+<div class="row animated fadeIn faster">
+  <div class="col">
+
+    <form (ngSubmit)="guardar( f )"
+          #f="ngForm">
+
+      <div class="form-group">
+        <label> ID </label>
+        <input type="text"
+               class="form-control"
+               placeholder="ID Base de Datos"
+               [(ngModel)]="empleado.id"
+               name="id"
+               disabled="disabled">
+        <small class="form-text text-muted">Este campo es autogenerado</small>
+      </div>
+
+      <div class="row">
+        <div class="form-group col">
+          <label><strong> Primer Nombre: </strong></label>
+          <input type="text"
+                 class="form-control"
+                 placeholder="1er Nombre del empleado"
+                 [(ngModel)]="empleado.nombreUno"
+                 name="nombreUno"
+                 required>
+        </div>
+        
+        <div class="form-group col">
+          <label><strong> Segundo Nombre: </strong></label>
+          <input type="text"
+                 class="form-control"
+                 placeholder="2do Nombre del empleado"
+                 [(ngModel)]="empleado.nombreDos"
+                 name="nombreDos"
+                 required>
+        </div>
+      </div>
+
+      
+      <div class="row">
+        <div class="form-group col">
+          <label><strong> Primer Apellido: </strong></label>
+          <input type="text"
+                 class="form-control"
+                 placeholder="1er Apellido del empleado"
+                 [(ngModel)]="empleado.apellidoUno"
+                 name="apellidoUno"
+                 required>
+        </div>
+  
+        <div class="form-group col">
+          <label><strong> Segundo Apellido: </strong></label>
+          <input type="text"
+                 class="form-control"
+                 placeholder="2do Apellido del empleado"
+                 [(ngModel)]="empleado.apellidoDos"
+                 name="apellidoDos"
+                 required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label><strong> Dirección Habitación: </strong></label>
+        <input type="text"
+               class="form-control"
+               placeholder="Dirección Habitación del empleado"
+               [(ngModel)]="empleado.direccion"
+               name="direccion"
+               required>
+      </div>
+
+      <div class="row">
+        <div class="form-group col">
+          <label><strong> Correo Electrónico: </strong></label>
+          <input type="email"
+                 class="form-control"
+                 placeholder="Correo Electrónico del empleado"
+                 [(ngModel)]="empleado.correo"
+                 name="correo"
+                 required>
+        </div>
+        <div class="col"></div>
+      </div>
+
+      <div class="row">
+        <div class="form-group col">
+          <label><strong> Número Celular: </strong></label>
+          <input type="text"
+                 class="form-control"
+                 placeholder="Número de celular del empleado"
+                 [(ngModel)]="empleado.tlfCelular"
+                 name="tlfCelular"
+                 required>
+        </div>
+  
+        <div class="form-group col">
+          <label><strong> Número Casa: </strong></label>
+          <input type="text"
+                 class="form-control"
+                 placeholder="Número teléfono casa del empleado"
+                 [(ngModel)]="empleado.tlfCasa"
+                 name="tlfCasa"
+                 required>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-group col">
+          <label><strong> En caso de Emergencia LLamar A: </strong></label>
+          <input type="text"
+                 class="form-control"
+                 placeholder="Nombre Familiar a Contactar"
+                 [(ngModel)]="empleado.casoEmergencia"
+                 name="casoEmergencia"
+                 required>
+        </div>
+        <div class="form-group col">
+          <label><strong> Número Telefónico de Emergencia: </strong></label>
+          <input type="text"
+                 class="form-control"
+                 placeholder="Número de Contacto del Familiar a Contactar"
+                 [(ngModel)]="empleado.numEmergencia"
+                 name="numEmergencia"
+                 required>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="form-group col">
+          <label><strong> Fecha de Ingreso: </strong></label>
+          <input type="date"
+                 class="form-control"
+                 placeholder="Fecha de ingreso"
+                 [(ngModel)]="empleado.fechaIngreso"
+                 name="fechaIngreso"
+                 required>
+        </div>
+  
+        <div class="form-group col">
+          <label><strong> Fecha de Egreso: </strong></label>
+          <input type="date"
+                 class="form-control"
+                 placeholder="Fecha de egreso">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label><strong> Estado: </strong></label>
+        <select class="custom-select"
+                required
+                [(ngModel)]="empleado.estado"
+                name="estado">
+          <option selected> Desplegar Menú</option>
+          <option value="Activo"> Activo </option>
+          <option value="Vacaciones"> Vacaciones </option>
+          <option value="Licencia"> Licencia </option>
+          <option value="Inactivo"> Inactivo </option>
+        </select>
+      </div>
+
+      <div class="custom-file">
+        <input type="file" class="custom-file-input" id="customFile">
+        <label class="custom-file-label" for="customFile">Cargar Fotografía</label>
+      </div>
+      
+      <div class="form-group text-center">
+        <button class=" btn btn-outline-primary btn-lg mt-5" type="submit">
+          <i class="fa fa-save"></i>
+          Guardar
+        </button>
+      </div>
+
+      <div class="mt-4">
+        <label class="text-danger"> <strong> Todos los campos son requeridos </strong></label>
+      </div>
+
+
+    </form>
+
+  </div>
+</div>
