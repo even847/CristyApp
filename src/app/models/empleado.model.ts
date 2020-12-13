@@ -19,5 +19,7 @@ export class EmpleadoModel {
     licencia: string
   };
 
-  constructor() { }
+  constructor() {
+
+  }
 }
