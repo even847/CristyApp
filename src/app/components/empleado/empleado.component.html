@@ -30,7 +30,7 @@
 
       <div class="row">
         <div class="form-group col">
-          <label><strong> Primer Nombre: </strong></label>
+          <label class=""><strong> Primer Nombre: </strong></label>
           <input type="text"
                  class="form-control"
                  placeholder="1er Nombre del empleado"
@@ -98,7 +98,7 @@
 
       <div class="row">
         <div class="form-group col">
-          <label><strong> Número Celular: </strong></label>
+          <label><strong> Número Teléfono Celular: </strong></label>
           <input type="text"
                  class="form-control"
                  placeholder="Número de celular del empleado"
@@ -108,7 +108,7 @@
         </div>
   
         <div class="form-group col">
-          <label><strong> Número Casa: </strong></label>
+          <label><strong> Número Teléfono Casa: </strong></label>
           <input type="text"
                  class="form-control"
                  placeholder="Número teléfono casa del empleado"
@@ -178,9 +178,14 @@
       </div>
       
       <div class="form-group text-center">
-        <button class=" btn btn-outline-primary btn-lg mt-5" type="submit">
+        <button *ngIf="!empleado.id" class=" btn btn-outline-primary btn-lg mt-5 mr-4" type="submit">
           <i class="fa fa-save"></i>
           Guardar
+        </button>
+
+        <button *ngIf="empleado.id" class=" btn btn-outline-success btn-lg mt-5" type="submit">
+          <i class="fa fa-save"></i>
+          Actualizar
         </button>
       </div>
 
