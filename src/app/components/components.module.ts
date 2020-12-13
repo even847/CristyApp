@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+
 
 
 import { ComponentsRoutingModule } from './components-routing.module';
@@ -19,7 +21,8 @@ import { EmpleadoComponent } from './empleado/empleado.component';
   imports: [
     CommonModule,
     ComponentsRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   exports: [
     ComponentsRoutingModule,
