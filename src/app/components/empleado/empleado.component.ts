@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { ActivatedRoute, Router} from '@angular/router';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { EmpleadoModel } from '../../models/empleado.model';
 import { EmpleadosService } from '../../services/empleados.service';
@@ -20,51 +19,152 @@ export class EmpleadoComponent implements OnInit {
   constructor(
     private empleadosService: EmpleadosService,
     private route: ActivatedRoute,
-    // private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private router: Router
   ) {
+    this.crearFormulario();
     this.empleado = new EmpleadoModel();
   }
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
+    this.forma.patchValue({ id });
 
     if (id !== 'nuevo') {
       this.empleadosService.getEmpleado(id).subscribe((resp: EmpleadoModel) => {
         this.empleado = resp;
         this.empleado.id = id;
+        this.cargarFormulario(this.empleado);
       });
     }
   }
 
+  get nombreUnoNoValido(): boolean {
+    return this.forma.get('nombreUno').invalid && this.forma.get('nombreDos').touched;
+  }
 
-  guardar(form: NgForm) {
-    if (form.invalid) {
-      console.log('Formulario Invalido');
-      return;
-    }
+  get apellidoUnoNoValido(): boolean {
+    return this.forma.get('apellidoUno').invalid && this.forma.get('apellidoUno').touched;
+  }
 
-    Swal.fire({
-      title: 'Espere',
-      text: 'Guardando Información',
-      icon: 'info',
-      allowOutsideClick: false,
+  crearFormulario(): void {
+    this.forma = this.formBuilder.group({
+      id: new FormControl({ value: '', disabled: true }),
+      nombreUno: [null, [Validators.pattern('[a-zA-Z ]*'), Validators.required, Validators.minLength(3)] ],
+      nombreDos: [''],
+      apellidoUno: ['', [Validators.pattern('[a-zA-Z ]*'), Validators.required, Validators.minLength(3)]],
+      apellidoDos: [''],
+      direccion: ['', [Validators.required, Validators.minLength(15)]],
+      correo: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
+      tlfCelular: ['', [Validators.required, Validators.minLength(10)]],
+      tlfCasa: ['', [Validators.required, Validators.minLength(10)]],
+      casoEmergencia: ['', [Validators.required, Validators.minLength(10)]],
+      numEmergencia: ['', [Validators.required, Validators.minLength(10)]],
+      fechaIngreso: ['', Validators.required],
+      fechaEgreso: [''],
+      estado: ['Activo', Validators.required],
     });
-    Swal.showLoading();
+  }
 
-    let peticion = new Observable<any>();
+  cargarFormulario(empleado: EmpleadoModel): void {
+    this.forma.patchValue({
+      nombreUno: empleado.nombreUno,
+      nombreDos: empleado.nombreDos,
+      apellidoUno: empleado.apellidoUno,
+      apellidoDos: empleado.apellidoDos,
+      direccion: empleado.direccion,
+      correo: empleado.correo,
+      tlfCelular: empleado.tlfCelular,
+      tlfCasa: empleado.tlfCasa,
+      casoEmergencia: empleado.casoEmergencia,
+      numEmergencia: empleado.numEmergencia,
+      fechaIngreso: empleado.fechaIngreso,
+      fechaEgreso: empleado.fechaEgreso,
+      estado: empleado.estado,
+    });
+  }
 
-    if (this.empleado.id) {
-      peticion = this.empleadosService.updateEmpleado(this.empleado);
+  guardar(): void {
+    if (this.forma.invalid) {
+      this.forma.markAllAsTouched();
     } else {
-      peticion = this.empleadosService.createEmpleado(this.empleado);
-    }
-
-    peticion.subscribe((resp) => {
       Swal.fire({
-        title: `Los datos del empelado: ${this.empleado.nombreUno} ${this.empleado.apellidoUno}`,
-        text: 'Se Cargarón correctamente',
-        icon: 'success',
+        title: 'Espere',
+        text: 'Guardando Información',
+        icon: 'info',
+        allowOutsideClick: false,
       });
+
+      Swal.showLoading();
+      if (this.empleado.id) {
+        this.enviarModificarEmpleado();
+      } else {
+        this.enviarCrearEmpleado();
+      }
+    }
+  }
+
+  crearObjEmpleado(): EmpleadoModel {
+    return {
+      ... new EmpleadoModel(),
+      id: this.forma.get('id').value,
+      nombreUno: this.forma.get('nombreUno').value,
+      nombreDos: this.forma.get('nombreDos').value,
+      apellidoUno: this.forma.get('apellidoUno').value,
+      apellidoDos: this.forma.get('apellidoDos').value,
+      direccion: this.forma.get('direccion').value,
+      correo: this.forma.get('correo').value,
+      tlfCelular: this.forma.get('tlfCelular').value,
+      tlfCasa: this.forma.get('tlfCasa').value,
+      casoEmergencia: this.forma.get('casoEmergencia').value,
+      numEmergencia: this.forma.get('numEmergencia').value,
+      fechaIngreso: this.forma.get('fechaIngreso').value,
+      fechaEgreso: this.forma.get('fechaEgreso').value,
+      estado: this.forma.get('estado').value,
+    };
+  }
+
+  modificarObjEmpleado(empleadoModificar: EmpleadoModel): EmpleadoModel {
+    return {
+      ...empleadoModificar,
+      nombreUno: this.forma.get('nombreUno').value,
+      nombreDos: this.forma.get('nombreDos').value,
+      apellidoUno: this.forma.get('apellidoUno').value,
+      apellidoDos: this.forma.get('apellidoDos').value,
+      direccion: this.forma.get('direccion').value,
+      correo: this.forma.get('correo').value,
+      tlfCelular: this.forma.get('tlfCelular').value,
+      tlfCasa: this.forma.get('tlfCasa').value,
+      casoEmergencia: this.forma.get('casoEmergencia').value,
+      numEmergencia: this.forma.get('numEmergencia').value,
+      fechaIngreso: this.forma.get('fechaIngreso').value,
+      fechaEgreso: this.forma.get('fechaEgreso').value,
+      estado: this.forma.get('estado').value,
+    };
+  }
+
+  mostrarSwal(nombreHtml?: string, apellidoHtml?: string, mensaje?: string): void {
+    Swal.fire({
+      title: `Los datos del empelado: ${nombreHtml} ${apellidoHtml}`,
+      text: mensaje,
+      icon: 'success',
+    }).then(() =>
+      // this.forma.reset()
+      this.router.navigate(['/empleados'])
+    );
+  }
+
+  enviarModificarEmpleado(): void {
+    const empleadoModificado = this.modificarObjEmpleado(this.empleado);
+    this.empleadosService.updateEmpleado(empleadoModificado).subscribe((desdeBD: EmpleadoModel) => {
+      this.mostrarSwal(desdeBD.nombreUno, desdeBD.apellidoUno, 'Se Han Modificó correctamente');
+    });
+  }
+
+  enviarCrearEmpleado(): void {
+    const newEmpleado = this.crearObjEmpleado();
+    this.empleadosService.createEmpleado(newEmpleado).subscribe((desdeBD: EmpleadoModel) => {
+      this.mostrarSwal(desdeBD.nombreUno, desdeBD.apellidoUno, 'Se Cargarón correctamente');
     });
   }
 }

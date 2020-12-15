@@ -1,7 +1,9 @@
+
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { EmpleadoModel } from '../models/empleado.model';
 import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +13,7 @@ export class EmpleadosService {
 
   constructor(private http: HttpClient) {}
 
-  createEmpleado(empleado: EmpleadoModel) {
+  createEmpleado(empleado: EmpleadoModel): Observable<EmpleadoModel> {
     return this.http.post(`${this.url}/empleados.json`, empleado).pipe(
       map((resp: any) => {
         empleado.id = resp.name;
@@ -22,7 +24,7 @@ export class EmpleadosService {
 
   updateEmpleado(empleado: EmpleadoModel) {
     const empleadoTemp = {
-      ...empleado,
+      ... empleado,
     };
 
     delete empleadoTemp.id;
@@ -32,12 +34,12 @@ export class EmpleadosService {
     );
   }
 
-  deleteEmpleado(id: string) {
+  deleteEmpleado(id: string): any {
     return this.http.delete(`${this.url}/empleados/${id}.json`);
   }
 
-  getEmpleado(id: string) {
-    return this.http.get(`${this.url}/empleados/${id}.json`);
+  getEmpleado(id: string): Observable<EmpleadoModel> {
+    return this.http.get<EmpleadoModel>(`${this.url}/empleados/${id}.json`);
   }
 
   getEmpleados() {
