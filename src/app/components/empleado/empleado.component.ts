@@ -126,7 +126,7 @@ export class EmpleadoComponent implements OnInit {
 
   modificarObjEmpleado(empleadoModificar: EmpleadoModel): EmpleadoModel {
     return {
-      ...empleadoModificar,
+      ... empleadoModificar,
       nombreUno: this.forma.get('nombreUno').value,
       nombreDos: this.forma.get('nombreDos').value,
       apellidoUno: this.forma.get('apellidoUno').value,
