@@ -14,14 +14,15 @@ import Swal from 'sweetalert2';
   styleUrls: ['./empleado.component.css'],
 })
 export class EmpleadoComponent implements OnInit {
-  empleado = new EmpleadoModel();
+  empleado: EmpleadoModel;
   forma: FormGroup;
 
   constructor(
     private empleadosService: EmpleadosService,
     private route: ActivatedRoute,
-    private formBuilder: FormBuilder
+    // private formBuilder: FormBuilder
   ) {
+    this.empleado = new EmpleadoModel();
   }
 
   ngOnInit(): void {
