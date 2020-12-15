@@ -36,7 +36,10 @@
                  placeholder="1er Nombre del empleado"
                  formControlName="nombreUno"
                  [class.is-invalid]="nombreUnoNoValido">
-                 <small *ngIf="nombreUnoNoValido" class="text-danger"> Debe Ingresar Un Nombre Valido (Solo Letras) </small>
+                 <small *ngIf="nombreUnoNoValido" 
+                        class="text-danger"> 
+                        Debe Ingresar Un Nombre Válido (Solo Letras) 
+                  </small>
     
         </div>
         
@@ -58,7 +61,10 @@
                  placeholder="1er Apellido del empleado"
                  formControlName="apellidoUno"
                  [class.is-invalid]="apellidoUnoNoValido">
-                 <small *ngIf="apellidoUnoNoValido" class="text-danger"> Debe Ingresar Un Apellido Valido (Solo Letras) </small>
+                 <small *ngIf="apellidoUnoNoValido" 
+                        class="text-danger"> 
+                   Debe Ingresar Un Apellido Válido (Solo Letras) 
+                 </small>
         </div>
   
         <div class="form-group col">
@@ -75,7 +81,12 @@
         <input type="text"
                class="form-control"
                placeholder="Dirección Habitación del empleado"
-               formControlName="direccion">
+               formControlName="direccion"
+               [class.is-invalid]="direccionNoValida">
+               <small *ngIf="direccionNoValida" 
+                      class="text-danger"> 
+                  Debe Ingresar Una Dirección Válida 
+               </small>
       </div>
 
       <div class="row">
@@ -84,7 +95,12 @@
           <input type="email"
                  class="form-control"
                  placeholder="Correo Electrónico del empleado"
-                 formControlName="correo">
+                 formControlName="correo"
+                 [class.is-invalid]="correoNoValido">
+                 <small *ngIf="correoNoValido" 
+                        class="text-danger"> 
+                  Debe Ingresar Un Correo Válido (Ej: mail@mail.com) 
+                 </small>
         </div>
         <div class="col"></div>
       </div>
@@ -92,10 +108,15 @@
       <div class="row">
         <div class="form-group col">
           <label><strong> Número Teléfono Celular: </strong></label>
-          <input type="text"
+          <input type="tel"
                  class="form-control"
                  placeholder="Número de celular del empleado"
-                 formControlName="tlfCelular">
+                 formControlName="tlfCelular"
+                 [class.is-invalid]="tlfCelularNoValido">
+                 <small *ngIf="tlfCelularNoValido" 
+                        class="text-danger"> 
+                  Debe Ingresar Un Número De Celular Válido (Ej: 1234-5678901) 
+                 </small>
         </div>
   
         <div class="form-group col">
@@ -113,24 +134,39 @@
           <input type="text"
                  class="form-control"
                  placeholder="Nombre Familiar a Contactar"
-                 formControlName="casoEmergencia">
+                 formControlName="casoEmergencia"
+                 [class.is-invalid]="casoEmergenciaNoValido">
+                 <small *ngIf="casoEmergenciaNoValido" 
+                        class="text-danger"> 
+                  Debe Ingresar El Nombre En Caso De Emergencia
+                 </small>
         </div>
         <div class="form-group col">
           <label><strong> Número Telefónico de Emergencia: </strong></label>
           <input type="text"
                  class="form-control"
                  placeholder="Número de Contacto del Familiar a Contactar"
-                 formControlName="numEmergencia">
+                 formControlName="numEmergencia"
+                 [class.is-invalid]="numEmergenciaNoValido">
+                 <small *ngIf="numEmergenciaNoValido" 
+                        class="text-danger"> 
+                  Debe Ingresar El Número De Teléfono En Caso De Emergencia
+                 </small>
         </div>
       </div>
       
       <div class="row">
         <div class="form-group col">
-          <label for="fechaIngreso"><strong> Fecha de Ingreso: </strong></label>
+          <label ><strong> Fecha de Ingreso: </strong></label>
           <input type="date"
                  class="form-control"
                  placeholder="Fecha de ingreso"
-                 formControlName="fechaIngreso">
+                 formControlName="fechaIngreso"
+                 [class.is-invalid]="fechaIngresoNoValido">
+                 <small *ngIf="fechaIngresoNoValido" 
+                        class="text-danger"> 
+                  Debe Ingresar Fecha De Ingreso
+                 </small>
         </div>
   
         <div class="form-group col">
@@ -145,7 +181,6 @@
       <div class="form-group">
         <label><strong> Estado: </strong></label>
         <select class="custom-select form-control" formControlName="estado">
-          <option selected> Desplegar Opciones</option>
           <option value="Activo"> Activo </option>
           <option value="Vacaciones"> Vacaciones </option>
           <option value="Licencia"> Licencia </option>
@@ -168,10 +203,6 @@
           <i class="fa fa-save"></i>
           Actualizar
         </button>
-      </div>
-
-      <div class="mt-4">
-        <label class="text-danger"> <strong> Todos los campos son requeridos </strong></label>
       </div>
 
     </form>
