@@ -31,15 +31,22 @@
       <td> {{ empleado.fechaEgreso }} </td>
       <td> {{ empleado.estado }} </td>
       <td>
-        <button class="btn btn-info mr-2"
+
+        <button type="button" class="btn btn-primary mr-2"
+                [routerLink]="['/empleado', empleado.id]">
+          <i class="fa fa-binoculars"></i>
+        </button> 
+
+        <button type="button" class="btn btn-info mr-2"
                 [routerLink]="['/empleado', empleado.id]">
           <i class="fa fa-pen"></i>
         </button> 
 
-        <button class="btn btn-danger"
+        <button type="button" class="btn btn-danger"
                 (click)="deleteEmpleado(empleado, i)">
           <i class="fa fa-trash"></i>
         </button> 
+
       </td>
     </tr>
 

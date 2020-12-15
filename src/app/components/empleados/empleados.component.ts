@@ -18,14 +18,11 @@ export class EmpleadosComponent implements OnInit {
 
   ngOnInit(): void {
     this.cargando = true;
-    this.empleadosService.getEmpleados().subscribe(
-      resp => {
-        this.empleados = resp;
-        this.cargando = false;
-      });
+
+    this.verEmpleados();
   }
 
-  deleteEmpleado(empelado: EmpleadoModel, i: number) {
+  deleteEmpleado(empelado: EmpleadoModel, i: number): void {
 
     Swal.fire({
       title: '<strong>¿Esta Seguro?</strong>',
@@ -42,6 +39,13 @@ export class EmpleadosComponent implements OnInit {
         this.empleadosService.deleteEmpleado(empelado.id).subscribe();
       }
     });
+  }
 
+  verEmpleados(): void {
+    this.empleadosService.getEmpleados().subscribe(
+      resp => {
+        this.empleados = resp;
+        this.cargando = false;
+      });
   }
 }
