@@ -13,11 +13,11 @@ export class EmpleadosService {
 
   constructor(private http: HttpClient) {}
 
-  createEmpleado(empleado: EmpleadoModel): Observable<EmpleadoModel> {
-    return this.http.post(`${this.url}/empleados.json`, empleado).pipe(
+  createEmpleado(empleadoIn: EmpleadoModel): Observable<EmpleadoModel> {
+    return this.http.post(`${this.url}/empleados.json`, empleadoIn).pipe(
       map((resp: any) => {
-        empleado.id = resp.name;
-        return empleado;
+        empleadoIn.id = resp.name;
+        return empleadoIn;
       })
     );
   }

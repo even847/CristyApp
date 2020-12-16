@@ -39,12 +39,12 @@ export class EmpleadoComponent implements OnInit {
     }
   }
 
-  get nombreUnoNoValido(): boolean {
-    return this.forma.get('nombreUno').invalid && this.forma.get('nombreUno').touched;
+  get nombreUnoNoValido(): any {
+    return this.forma.get('nombreUno');
   }
 
-  get apellidoUnoNoValido(): boolean {
-    return this.forma.get('apellidoUno').invalid && this.forma.get('apellidoUno').touched;
+  get apellidoUnoNoValido(): any {
+    return this.forma.get('apellidoUno');
   }
 
   get direccionNoValida(): boolean {
@@ -64,11 +64,15 @@ export class EmpleadoComponent implements OnInit {
   }
 
   get numEmergenciaNoValido(): boolean {
-    return this.forma.get('casoEmergencia').invalid && this.forma.get('casoEmergencia').touched;
+    return this.forma.get('numEmergencia').invalid && this.forma.get('numEmergencia').touched;
   }
 
   get fechaIngresoNoValido(): boolean {
     return this.forma.get('fechaIngreso').invalid && this.forma.get('fechaIngreso').touched;
+  }
+
+  checkCampoOk(nombreInput: string): boolean {
+    return this.forma.get(nombreInput).invalid && this.forma.get(nombreInput).touched;
   }
 
   crearFormulario(): void {
@@ -83,7 +87,7 @@ export class EmpleadoComponent implements OnInit {
       tlfCelular: ['', [Validators.required, Validators.minLength(10), Validators.pattern('-|[0-9]+')]],
       tlfCasa: ['', [Validators.pattern('[-|[0-9]+]'), Validators.required]],
       casoEmergencia: ['', [Validators.required, Validators.minLength(10)]],
-      numEmergencia: ['', [Validators.pattern('[-|[0-9]+]'), Validators.required, Validators.minLength(10)]],
+      numEmergencia: ['', [ Validators.required]],
       fechaIngreso: ['', Validators.required],
       fechaEgreso: [''],
       estado: ['Activo', Validators.required],
@@ -151,7 +155,7 @@ export class EmpleadoComponent implements OnInit {
 
   modificarObjEmpleado(empleadoModificar: EmpleadoModel): EmpleadoModel {
     return {
-      ...empleadoModificar,
+      ... empleadoModificar,
       nombreUno: this.forma.get('nombreUno').value,
       nombreDos: this.forma.get('nombreDos').value,
       apellidoUno: this.forma.get('apellidoUno').value,
@@ -192,4 +196,5 @@ export class EmpleadoComponent implements OnInit {
       this.mostrarSwal(desdeBD.nombreUno, desdeBD.apellidoUno, 'Se Cargarón correctamente');
     });
   }
+
 }
