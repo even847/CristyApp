@@ -47,28 +47,32 @@ export class EmpleadoComponent implements OnInit {
     return this.forma.get('apellidoUno');
   }
 
-  get direccionNoValida(): boolean {
-    return this.forma.get('direccion').invalid;
+  get direccionNoValida(): any {
+    return this.forma.get('direccion');
   }
 
-  get correoNoValido(): boolean {
-    return this.forma.get('correo').invalid && this.forma.get('correo').touched;
+  get correoNoValido(): any {
+    return this.forma.get('correo');
   }
 
-  get tlfCelularNoValido(): boolean {
-    return this.forma.get('tlfCelular').invalid && this.forma.get('tlfCelular').touched;
+  get tlfCelularNoValido(): any {
+    return this.forma.get('tlfCelular');
   }
 
-  get casoEmergenciaNoValido(): boolean {
-    return this.forma.get('casoEmergencia').invalid && this.forma.get('casoEmergencia').touched;
+  get tlfCasaNoValido(): any {
+    return this.forma.get('tlfCasa');
   }
 
-  get numEmergenciaNoValido(): boolean {
-    return this.forma.get('numEmergencia').invalid && this.forma.get('numEmergencia').touched;
+  get casoEmergenciaNoValido(): any {
+    return this.forma.get('casoEmergencia');
   }
 
-  get fechaIngresoNoValido(): boolean {
-    return this.forma.get('fechaIngreso').invalid && this.forma.get('fechaIngreso').touched;
+  get numEmergenciaNoValido(): any {
+    return this.forma.get('numEmergencia');
+  }
+
+  get fechaIngresoNoValido(): any {
+    return this.forma.get('fechaIngreso');
   }
 
   checkCampoOk(nombreInput: string): boolean {
@@ -78,16 +82,16 @@ export class EmpleadoComponent implements OnInit {
   crearFormulario(): void {
     this.forma = this.formBuilder.group({
       id: new FormControl({ value: '', disabled: true }),
-      nombreUno: [null, [Validators.pattern('[a-zA-Z ]*'), Validators.required, Validators.minLength(3)] ],
+      nombreUno: [null, [Validators.required, Validators.minLength(3), Validators.pattern('[a-zA-Z ]*')] ],
       nombreDos: [''],
       apellidoUno: ['', [Validators.pattern('[a-zA-Z ]*'), Validators.required, Validators.minLength(3)]],
       apellidoDos: [''],
       direccion: ['', [Validators.required, Validators.minLength(15)]],
       correo: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
       tlfCelular: ['', [Validators.required, Validators.minLength(10), Validators.pattern('-|[0-9]+')]],
-      tlfCasa: ['', [Validators.pattern('[-|[0-9]+]'), Validators.required]],
-      casoEmergencia: ['', [Validators.required, Validators.minLength(10)]],
-      numEmergencia: ['', [ Validators.required]],
+      tlfCasa: ['', [Validators.required, Validators.minLength(10), Validators.pattern('-|[0-9]+')]],
+      casoEmergencia: ['', [Validators.pattern('[a-zA-Z ]*'), Validators.required, Validators.minLength(10)]],
+      numEmergencia: ['', [ Validators.required, Validators.minLength(10), Validators.pattern('-|[0-9]+')]],
       fechaIngreso: ['', Validators.required],
       fechaEgreso: [''],
       estado: ['Activo', Validators.required],
