@@ -48,7 +48,7 @@ export class EmpleadoComponent implements OnInit {
   }
 
   get direccionNoValida(): boolean {
-    return this.forma.get('direccion').invalid && this.forma.get('direccion').touched;
+    return this.forma.get('direccion').invalid;
   }
 
   get correoNoValido(): boolean {
