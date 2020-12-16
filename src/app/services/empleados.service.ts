@@ -13,16 +13,16 @@ export class EmpleadosService {
 
   constructor(private http: HttpClient) {}
 
-  createEmpleado(empleado: EmpleadoModel): Observable<EmpleadoModel> {
-    return this.http.post(`${this.url}/empleados.json`, empleado).pipe(
+  createEmpleado(empleadoIn: EmpleadoModel): Observable<EmpleadoModel> {
+    return this.http.post(`${this.url}/empleados.json`, empleadoIn).pipe(
       map((resp: any) => {
-        empleado.id = resp.name;
-        return empleado;
+        empleadoIn.id = resp.name;
+        return empleadoIn;
       })
     );
   }
 
-  updateEmpleado(empleado: EmpleadoModel) {
+  updateEmpleado(empleado: EmpleadoModel): Observable<object> {
     const empleadoTemp = {
       ... empleado,
     };
@@ -42,13 +42,13 @@ export class EmpleadosService {
     return this.http.get<EmpleadoModel>(`${this.url}/empleados/${id}.json`);
   }
 
-  getEmpleados() {
+  getEmpleados(): Observable<EmpleadoModel[]> {
     return this.http
       .get(`${this.url}/empleados.json`)
       .pipe(map(this.crearArreglo));
   }
 
-  private crearArreglo(empleadoObj: object) {
+  private crearArreglo(empleadoObj: object): EmpleadoModel[] {
     const empleados: EmpleadoModel[] = [];
 
     console.log(empleadoObj);

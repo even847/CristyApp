@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, Routes } from '@angular/router';
+import { ActivatedRoute, Router} from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { EmpleadoModel } from '../../models/empleado.model';
@@ -39,12 +39,40 @@ export class EmpleadoComponent implements OnInit {
     }
   }
 
-  get nombreUnoNoValido(): boolean {
-    return this.forma.get('nombreUno').invalid && this.forma.get('nombreDos').touched;
+  get nombreUnoNoValido(): any {
+    return this.forma.get('nombreUno');
   }
 
-  get apellidoUnoNoValido(): boolean {
-    return this.forma.get('apellidoUno').invalid && this.forma.get('apellidoUno').touched;
+  get apellidoUnoNoValido(): any {
+    return this.forma.get('apellidoUno');
+  }
+
+  get direccionNoValida(): boolean {
+    return this.forma.get('direccion').invalid && this.forma.get('direccion').touched;
+  }
+
+  get correoNoValido(): boolean {
+    return this.forma.get('correo').invalid && this.forma.get('correo').touched;
+  }
+
+  get tlfCelularNoValido(): boolean {
+    return this.forma.get('tlfCelular').invalid && this.forma.get('tlfCelular').touched;
+  }
+
+  get casoEmergenciaNoValido(): boolean {
+    return this.forma.get('casoEmergencia').invalid && this.forma.get('casoEmergencia').touched;
+  }
+
+  get numEmergenciaNoValido(): boolean {
+    return this.forma.get('numEmergencia').invalid && this.forma.get('numEmergencia').touched;
+  }
+
+  get fechaIngresoNoValido(): boolean {
+    return this.forma.get('fechaIngreso').invalid && this.forma.get('fechaIngreso').touched;
+  }
+
+  checkCampoOk(nombreInput: string): boolean {
+    return this.forma.get(nombreInput).invalid && this.forma.get(nombreInput).touched;
   }
 
   crearFormulario(): void {
@@ -56,10 +84,10 @@ export class EmpleadoComponent implements OnInit {
       apellidoDos: [''],
       direccion: ['', [Validators.required, Validators.minLength(15)]],
       correo: ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
-      tlfCelular: ['', [Validators.required, Validators.minLength(10)]],
-      tlfCasa: ['', [Validators.required, Validators.minLength(10)]],
+      tlfCelular: ['', [Validators.required, Validators.minLength(10), Validators.pattern('-|[0-9]+')]],
+      tlfCasa: ['', [Validators.pattern('[-|[0-9]+]'), Validators.required]],
       casoEmergencia: ['', [Validators.required, Validators.minLength(10)]],
-      numEmergencia: ['', [Validators.required, Validators.minLength(10)]],
+      numEmergencia: ['', [ Validators.required]],
       fechaIngreso: ['', Validators.required],
       fechaEgreso: [''],
       estado: ['Activo', Validators.required],
@@ -96,6 +124,7 @@ export class EmpleadoComponent implements OnInit {
       });
 
       Swal.showLoading();
+
       if (this.empleado.id) {
         this.enviarModificarEmpleado();
       } else {
@@ -167,4 +196,5 @@ export class EmpleadoComponent implements OnInit {
       this.mostrarSwal(desdeBD.nombreUno, desdeBD.apellidoUno, 'Se Cargarón correctamente');
     });
   }
+
 }
