@@ -40,7 +40,7 @@ export class EmpleadoComponent implements OnInit {
   }
 
   get nombreUnoNoValido(): boolean {
-    return this.forma.get('nombreUno').invalid && this.forma.get('nombreDos').touched;
+    return this.forma.get('nombreUno').invalid && this.forma.get('nombreUno').touched;
   }
 
   get apellidoUnoNoValido(): boolean {
@@ -85,9 +85,9 @@ export class EmpleadoComponent implements OnInit {
   }
 
   guardar(): void {
-    if (this.forma.invalid) {
-      this.forma.markAllAsTouched();
-    } else {
+    // if (this.forma.invalid) {
+    //   this.forma.markAllAsTouched();
+    // } else {
       Swal.fire({
         title: 'Espere',
         text: 'Guardando Información',
@@ -102,7 +102,7 @@ export class EmpleadoComponent implements OnInit {
         this.enviarCrearEmpleado();
       }
     }
-  }
+  // }
 
   crearObjEmpleado(): EmpleadoModel {
     return {
