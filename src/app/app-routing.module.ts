@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
     { path: 'component', loadChildren: () => import('./components/components.module').then( m => m.ComponentsModule) },
+    { path: 'shared', loadChildren: () => import('./shared/shared.module').then( m => m.SharedModule) },
 ];
 
 @NgModule({

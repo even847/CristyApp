@@ -14,7 +14,6 @@
 <div class="row animated fadeIn faster">
   <div class="col">
 
-    
     <form (ngSubmit)="guardar()"
           [formGroup]="forma"
           novalidate>
@@ -35,8 +34,18 @@
                  class="form-control"
                  placeholder="1er Nombre del empleado"
                  formControlName="nombreUno"
-                 [class.is-invalid]="nombreUnoNoValido">
-                 <small *ngIf="nombreUnoNoValido" class="text-danger"> Debe Ingresar Un Nombre Valido (Solo Letras) </small>
+                 [class.is-invalid]="checkCampoOk('nombreUno')">
+                 <div *ngIf="nombreUnoNoValido.errors && nombreUnoNoValido.touched" class="text-danger">
+                  <p *ngIf="nombreUnoNoValido.hasError('required')" class="text-danger">
+                    Es un campo requerido
+                  </p>
+                  <p *ngIf="nombreUnoNoValido.hasError('minlength')" class="text-danger">
+                    Mínimo Tres Caracteres
+                  </p>
+                  <p *ngIf="nombreUnoNoValido.hasError('pattern')" class="text-danger">
+                    Debe Ingresar Solo Letras
+                  </p>
+                </div>
     
         </div>
         
@@ -57,8 +66,18 @@
                  class="form-control"
                  placeholder="1er Apellido del empleado"
                  formControlName="apellidoUno"
-                 [class.is-invalid]="apellidoUnoNoValido">
-                 <small *ngIf="apellidoUnoNoValido" class="text-danger"> Debe Ingresar Un Apellido Valido (Solo Letras) </small>
+                 [class.is-invalid]="checkCampoOk('apellidoUno')">
+                 <div *ngIf="apellidoUnoNoValido.errors && apellidoUnoNoValido.touched" class="text-danger">
+                  <p *ngIf="apellidoUnoNoValido.hasError('required')" class="text-danger">
+                    Es un campo requerido
+                  </p>
+                  <p *ngIf="apellidoUnoNoValido.hasError('minLength')" class="text-danger">
+                    Mínimo Tres Caracteres
+                  </p>
+                  <p *ngIf="apellidoUnoNoValido.hasError('pattern')" class="text-danger">
+                    Debe Ingresar Solo Letras
+                  </p>
+                </div>
         </div>
   
         <div class="form-group col">
@@ -75,7 +94,16 @@
         <input type="text"
                class="form-control"
                placeholder="Dirección Habitación del empleado"
-               formControlName="direccion">
+               formControlName="direccion"
+               [class.is-invalid]="checkCampoOk('direccion')">
+               <div *ngIf="direccionNoValida.errors && direccionNoValida.touched" class="text-danger">
+                <p *ngIf="direccionNoValida.hasError('required')" class="text-danger">
+                  Es un campo requerido
+                </p>
+                <p *ngIf="direccionNoValida.hasError('minLength')" class="text-danger">
+                  Debe Ingresar Un Mínimo De Caracteres
+                </p>                
+              </div>
       </div>
 
       <div class="row">
@@ -84,7 +112,16 @@
           <input type="email"
                  class="form-control"
                  placeholder="Correo Electrónico del empleado"
-                 formControlName="correo">
+                 formControlName="correo"
+                 [class.is-invalid]="checkCampoOk('correo')">
+                 <div *ngIf="correoNoValido.errors && correoNoValido.touched" class="text-danger">
+                  <p *ngIf="correoNoValido.hasError('required')" class="text-danger">
+                    Es un campo requerido
+                  </p>
+                  <p *ngIf="correoNoValido.hasError('pattern')" class="text-danger">
+                    Formato De Correo No Válido (Ej: mail@mail.com)
+                  </p>                
+                </div>
         </div>
         <div class="col"></div>
       </div>
@@ -92,10 +129,22 @@
       <div class="row">
         <div class="form-group col">
           <label><strong> Número Teléfono Celular: </strong></label>
-          <input type="text"
+          <input type="tel"
                  class="form-control"
                  placeholder="Número de celular del empleado"
-                 formControlName="tlfCelular">
+                 formControlName="tlfCelular"
+                 [class.is-invalid]="checkCampoOk('tlfCelular')">
+                 <div *ngIf="tlfCelularNoValido.errors && tlfCelularNoValido.touched" class="text-danger">
+                  <p *ngIf="tlfCelularNoValido.hasError('required')" class="text-danger">
+                    Es un campo requerido
+                  </p>
+                  <p *ngIf="tlfCelularNoValido.hasError('minLength')" class="text-danger">
+                    Debe Ingresar La Longitud De Un Teléfono Correcto
+                  </p>                
+                  <p *ngIf="tlfCelularNoValido.hasError('pattern')" class="text-danger">
+                    Debe Ingresar Solo Números (Ej: 0424-5554433)
+                  </p>                
+                </div>
         </div>
   
         <div class="form-group col">
@@ -103,7 +152,17 @@
           <input type="text"
                  class="form-control"
                  placeholder="Número teléfono casa del empleado"
-                 formControlName="tlfCasa">
+                 formControlName="tlfCasa"
+                 [class.is-invalid]="checkCampoOk('tlfCasa')">
+                 <div *ngIf="tlfCasaNoValido.errors && tlfCasaNoValido.touched" class="text-danger">                
+                  <p *ngIf="tlfCasaNoValido.hasError('required')" class="text-danger">
+                    Es Un Campo Requerido
+                  </p>                
+                  <p *ngIf="tlfCasaNoValido.hasError('pattern')" class="text-danger">
+                    Debe Ingresar Solo Números (Ej: 0273-5554433)
+                  </p>                
+                </div>
+
         </div>
       </div>
 
@@ -113,24 +172,54 @@
           <input type="text"
                  class="form-control"
                  placeholder="Nombre Familiar a Contactar"
-                 formControlName="casoEmergencia">
+                 formControlName="casoEmergencia"
+                 [class.is-invalid]="checkCampoOk('casoEmergencia')">
+                 <div *ngIf="casoEmergenciaNoValido.errors && casoEmergenciaNoValido.touched" class="text-danger">
+                  <p *ngIf="casoEmergenciaNoValido.hasError('required')" class="text-danger">
+                    Es un campo requerido
+                  </p>
+                  <p *ngIf="casoEmergenciaNoValido.hasError('minLength')" class="text-danger">
+                    Debe Ingresar Un Nombre Correcto
+                  </p>                
+                  <p *ngIf="casoEmergenciaNoValido.hasError('pattern')" class="text-danger">
+                    Debe Ingresar Solo Letras
+                  </p>                
+                </div>
         </div>
         <div class="form-group col">
           <label><strong> Número Telefónico de Emergencia: </strong></label>
           <input type="text"
                  class="form-control"
                  placeholder="Número de Contacto del Familiar a Contactar"
-                 formControlName="numEmergencia">
+                 formControlName="numEmergencia"
+                 [class.is-invalid]="checkCampoOk('numEmergencia')">
+                 <div *ngIf="numEmergenciaNoValido.errors && numEmergenciaNoValido.touched" class="text-danger">
+                  <p *ngIf="numEmergenciaNoValido.hasError('required')" class="text-danger">
+                    Es un campo requerido
+                  </p>
+                  <p *ngIf="numEmergenciaNoValido.hasError('minLength')" class="text-danger">
+                    Debe Ingresar Un Nombre Correcto
+                  </p>                
+                  <p *ngIf="numEmergenciaNoValido.hasError('pattern')" class="text-danger">
+                    Debe Ingresar Solo Números (Ej: 0424-5554433 - 0273-5554433)
+                  </p>                
+                </div>
         </div>
       </div>
       
       <div class="row">
         <div class="form-group col">
-          <label for="fechaIngreso"><strong> Fecha de Ingreso: </strong></label>
+          <label ><strong> Fecha de Ingreso: </strong></label>
           <input type="date"
                  class="form-control"
                  placeholder="Fecha de ingreso"
-                 formControlName="fechaIngreso">
+                 formControlName="fechaIngreso"
+                 [class.is-invalid]="checkCampoOk('fechaIngreso')">
+                 <div *ngIf="fechaIngresoNoValido.errors && fechaIngresoNoValido.touched" class="text-danger">
+                  <p *ngIf="fechaIngresoNoValido.hasError('required')" class="text-danger">
+                    Es un campo requerido
+                  </p>                                 
+                </div>
         </div>
   
         <div class="form-group col">
@@ -145,7 +234,6 @@
       <div class="form-group">
         <label><strong> Estado: </strong></label>
         <select class="custom-select form-control" formControlName="estado">
-          <option selected> Desplegar Opciones</option>
           <option value="Activo"> Activo </option>
           <option value="Vacaciones"> Vacaciones </option>
           <option value="Licencia"> Licencia </option>
@@ -168,10 +256,6 @@
           <i class="fa fa-save"></i>
           Actualizar
         </button>
-      </div>
-
-      <div class="mt-4">
-        <label class="text-danger"> <strong> Todos los campos son requeridos </strong></label>
       </div>
 
     </form>
